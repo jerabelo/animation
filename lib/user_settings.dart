@@ -42,6 +42,41 @@ class SecondRoute extends StatelessWidget {
                     hintText: 'Number of questions'),
               ),
             ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                ActionChip(
+                  elevation: 8.0,
+                  padding: EdgeInsets.all(2.0),
+                  avatar: CircleAvatar(
+                    backgroundColor: Colors.redAccent,
+                    child: Icon(Icons.mode_comment),
+                  ),
+                  label: Text('Multiple Choice'),
+                  onPressed: () {},
+                ),
+                ActionChip(
+                  elevation: 8.0,
+                  padding: EdgeInsets.all(2.0),
+                  avatar: CircleAvatar(
+                    backgroundColor: Colors.redAccent,
+                    child: Icon(Icons.mode_comment),
+                  ),
+                  label: Text('Fill in Blank'),
+                  onPressed: () {},
+                ),
+                ActionChip(
+                  elevation: 8.0,
+                  padding: EdgeInsets.all(2.0),
+                  avatar: CircleAvatar(
+                    backgroundColor: Colors.redAccent,
+                    child: Icon(Icons.mode_comment),
+                  ),
+                  label: Text('Mixed'),
+                  onPressed: () {},
+                ),
+              ],
+            ),
             ElevatedButton(onPressed: () {}, child: const Text('Submit')),
           ],
         ),
