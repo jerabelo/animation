@@ -1,5 +1,7 @@
+import 'package:animation/user_settings.dart';
 import 'package:flutter/material.dart';
 import 'Controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
       ),
       home: const MyHomePage(
         title: 'Interactive Quiz App',
@@ -40,11 +42,13 @@ class LoginData {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  String _response = '';
   LoginData _loginData = new LoginData();
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
-  void _incrementCounter() {
+  void _checkUser(String user, String id) {
     setState(() {
+      _response;
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
       // so that the display can reflect the updated values. If we changed
@@ -61,62 +65,93 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         title: Text(widget.title),
       ),
-      body: Container(
-        padding: EdgeInsets.all(50.0),
-        child: Form(
-          key: this._formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              TextFormField(
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (String? inValue) {
-                    // ignore: prefer_is_empty
-                    if (inValue?.length == 0) {
-                      return 'Please enter username';
-                    }
-                    return null;
-                  },
-                  onSaved: (String? inValue) {
-                    this._loginData.username = inValue!;
-                  },
-                  // ignore: prefer_const_constructors
-                  decoration: InputDecoration(
-                      hintText: "none@none.com",
-                      labelText: 'Username (eMail address)')),
-              TextFormField(
-                obscureText: true,
-                validator: (String? inValue) {
-                  if (inValue?.length != 4) {
-                    return 'Password must be 4 in length!';
-                  }
-                  return null;
-                },
-                onSaved: (String? inValue) {
-                  this._loginData.password = inValue!;
-                },
-                // ignore: prefer_const_constructors
-                decoration: InputDecoration(
-                    hintText: 'password', labelText: 'password'),
-              ),
-              ElevatedButton(
-                child: Text('Log in!'),
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
-                    authenticateUser(_loginData.username, _loginData.password);
-                  }
-                },
-              ),
-            ],
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(25.0),
+          child: Form(
+            key: this._formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Container(
+                  child: Image.asset(
+                    'android/assets/utep_logo.png',
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (String? inValue) {
+                      // ignore: prefer_is_empty
+                      // ignore: prefer_is_empty
+                      if (inValue?.length == 0) {
+                        return 'Please enter username';
+                      }
+                      return null;
+                    },
+                    onSaved: (String? inValue) {
+                      this._loginData.username = inValue!;
+                    },
+                    // ignore: prefer_const_constructors
+                    decoration: InputDecoration(
+                        hintText: "miners username",
+                        labelText: 'username',
+                        border: const OutlineInputBorder()),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 25.0),
+                  child: TextFormField(
+                    obscureText: true,
+                    validator: (String? inValue) {
+                      if (inValue?.length != 4) {
+                        return 'Password must be 4 in length!';
+                      }
+                      return null;
+                    },
+                    onSaved: (String? inValue) {
+                      this._loginData.password = inValue!;
+                    },
+                    // ignore: prefer_const_constructors
+                    decoration: InputDecoration(
+                        hintText: 'last 4 of ID',
+                        labelText: 'password',
+                        border: OutlineInputBorder()),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(100.0),
+                  child: ElevatedButton(
+                    child: Text('Log in!'),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        _formKey.currentState!.save();
+                        FutureBuilder<String>(
+                            future: authenticateUser(
+                                _loginData.username, _loginData.password),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<String> snapshot) {
+                              if (snapshot.hasData) {
+                                _response = snapshot.data!;
+                              }
+                              return Text(_response);
+                            });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SecondRoute()),
+                        );
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

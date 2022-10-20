@@ -1,3 +1,5 @@
+// Bad certificate for https calls
+
 import 'dart:ffi';
 import 'package:http/http.dart' as http;
 import 'dart:math';
@@ -18,7 +20,7 @@ List<dynamic> generateRandomQuiz(List<dynamic> questions, int totalQuestions) {
 }
 
 // Method for checking if user is authorized to use the app
-dynamic authenticateUser(String user, String pin) async {
+Future<String> authenticateUser(String user, String pin) async {
   var url = Uri.parse(
       'https://www.cs.utep.edu/cheon/cs4381/homework/quiz/login.php?user=${user.toString()}&pin=${pin.toString()}');
   var response = await http.get(url);
