@@ -1,10 +1,21 @@
 import 'package:animation/user_settings.dart';
 import 'package:flutter/material.dart';
 import 'Controller.dart';
+import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
 }
 
 class MyApp extends StatelessWidget {
