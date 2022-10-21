@@ -78,58 +78,61 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(25.0),
           child: Form(
             key: this._formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                Container(
-                  child: Image.asset(
-                    'android/assets/utep_logo.png',
+                Image.asset(
+                  'android/assets/utep_logo.png',
+                  height: 300,
+                ),
+                SizedBox(
+                  width: 300,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 50),
+                    child: TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (String? inValue) {
+                        // ignore: prefer_is_empty
+                        // ignore: prefer_is_empty
+                        if (inValue?.length == 0) {
+                          return 'Please enter username';
+                        }
+                        return null;
+                      },
+                      onSaved: (String? inValue) {
+                        this._loginData.username = inValue!;
+                      },
+                      // ignore: prefer_const_constructors
+                      decoration: InputDecoration(
+                          hintText: "miners username",
+                          labelText: 'username',
+                          border: const OutlineInputBorder()),
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 100),
-                  child: TextFormField(
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (String? inValue) {
-                      // ignore: prefer_is_empty
-                      // ignore: prefer_is_empty
-                      if (inValue?.length == 0) {
-                        return 'Please enter username';
-                      }
-                      return null;
-                    },
-                    onSaved: (String? inValue) {
-                      this._loginData.username = inValue!;
-                    },
-                    // ignore: prefer_const_constructors
-                    decoration: InputDecoration(
-                        hintText: "miners username",
-                        labelText: 'username',
-                        border: const OutlineInputBorder()),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 25.0),
-                  child: TextFormField(
-                    obscureText: true,
-                    validator: (String? inValue) {
-                      if (inValue?.length != 4) {
-                        return 'Password must be 4 in length!';
-                      }
-                      return null;
-                    },
-                    onSaved: (String? inValue) {
-                      this._loginData.password = inValue!;
-                    },
-                    // ignore: prefer_const_constructors
-                    decoration: InputDecoration(
-                        hintText: 'last 4 of ID',
-                        labelText: 'password',
-                        border: OutlineInputBorder()),
+                SizedBox(
+                  width: 300,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 25.0),
+                    child: TextFormField(
+                      obscureText: true,
+                      validator: (String? inValue) {
+                        if (inValue?.length != 4) {
+                          return 'Password must be 4 in length!';
+                        }
+                        return null;
+                      },
+                      onSaved: (String? inValue) {
+                        this._loginData.password = inValue!;
+                      },
+                      // ignore: prefer_const_constructors
+                      decoration: InputDecoration(
+                          hintText: 'last 4 of ID',
+                          labelText: 'password',
+                          border: OutlineInputBorder()),
+                    ),
                   ),
                 ),
                 Padding(

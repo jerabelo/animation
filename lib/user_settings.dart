@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'main.dart';
 
 void main() {
@@ -17,67 +18,68 @@ class SecondRoute extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Settings'),
       ),
-      body: Container(
-        padding: EdgeInsets.all(25.0),
+      body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          // ignore: prefer_const_literals_to_create_immutables
           children: <Widget>[
-            // ignore: prefer_const_constructors
-            Center(
+            Container(
               child: Text(
-                'How many questions would you like?',
+                'Select question type',
                 // ignore: prefer_const_constructors
                 style: TextStyle(
+                  fontSize: 25,
                   fontWeight: FontWeight.bold,
-                  fontSize: 15,
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Number of questions'),
+            SizedBox(
+              width: 500,
+              child: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(80.0),
+                      child: ActionChip(
+                        elevation: 8.0,
+                        padding: EdgeInsets.all(2.0),
+                        avatar: const CircleAvatar(
+                          backgroundColor: Colors.redAccent,
+                          child: Icon(Icons.question_mark_rounded),
+                        ),
+                        label: Text('Multiple Choice'),
+                        onPressed: () {},
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(100.0),
+                      child: ActionChip(
+                        elevation: 8.0,
+                        padding: EdgeInsets.all(2.0),
+                        avatar: const CircleAvatar(
+                          backgroundColor: Colors.redAccent,
+                          child: Icon(Icons.question_mark_rounded),
+                        ),
+                        label: Text('Mixed'),
+                        onPressed: () {},
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(80.0),
+                      child: ActionChip(
+                        elevation: 8.0,
+                        padding: EdgeInsets.all(2.0),
+                        avatar: const CircleAvatar(
+                          backgroundColor: Colors.redAccent,
+                          child: Icon(Icons.question_mark_rounded),
+                        ),
+                        label: const Text('Fill in Blank'),
+                        onPressed: () {},
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ActionChip(
-                  elevation: 8.0,
-                  padding: EdgeInsets.all(2.0),
-                  avatar: CircleAvatar(
-                    backgroundColor: Colors.redAccent,
-                    child: Icon(Icons.mode_comment),
-                  ),
-                  label: Text('Multiple Choice'),
-                  onPressed: () {},
-                ),
-                ActionChip(
-                  elevation: 8.0,
-                  padding: EdgeInsets.all(2.0),
-                  avatar: CircleAvatar(
-                    backgroundColor: Colors.redAccent,
-                    child: Icon(Icons.mode_comment),
-                  ),
-                  label: Text('Fill in Blank'),
-                  onPressed: () {},
-                ),
-                ActionChip(
-                  elevation: 8.0,
-                  padding: EdgeInsets.all(2.0),
-                  avatar: CircleAvatar(
-                    backgroundColor: Colors.redAccent,
-                    child: Icon(Icons.mode_comment),
-                  ),
-                  label: Text('Mixed'),
-                  onPressed: () {},
-                ),
-              ],
-            ),
-            ElevatedButton(onPressed: () {}, child: const Text('Submit')),
           ],
         ),
       ),
