@@ -3,84 +3,93 @@ import 'package:flutter/services.dart';
 import 'main.dart';
 
 void main() {
-  runApp(const MaterialApp(
+  runApp(MaterialApp(
     title: 'Navigation Basics',
-    home: const SecondRoute(),
+    home: SecondRoute(),
   ));
 }
 
-class SecondRoute extends StatelessWidget {
-  const SecondRoute({super.key});
+class SecondRoute extends StatefulWidget {
+  SecondRoute({Key? key}) : super(key: key);
+
+  @override
+  _SecondRoute createState() => _SecondRoute();
+}
+
+class _SecondRoute extends State<SecondRoute> {
+  // Default values for list when displayed
+  String defaultChoice = 'Mixed';
+  String defaultNum = '5';
+
+  var items = ['Mixed', 'Multiple Choice', 'Fill in Blank'];
+  var amountOfQuestions = [
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('Settings'),
       ),
       body: Center(
-        child: Column(
-          children: <Widget>[
-            Container(
-              child: Text(
-                'Select question type',
-                // ignore: prefer_const_constructors
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Please select type of questions',
+                style: TextStyle(fontSize: 20),
               ),
-            ),
-            SizedBox(
-              width: 500,
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(80.0),
-                      child: ActionChip(
-                        elevation: 8.0,
-                        padding: EdgeInsets.all(2.0),
-                        avatar: const CircleAvatar(
-                          backgroundColor: Colors.redAccent,
-                          child: Icon(Icons.question_mark_rounded),
-                        ),
-                        label: Text('Multiple Choice'),
-                        onPressed: () {},
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(100.0),
-                      child: ActionChip(
-                        elevation: 8.0,
-                        padding: EdgeInsets.all(2.0),
-                        avatar: const CircleAvatar(
-                          backgroundColor: Colors.redAccent,
-                          child: Icon(Icons.question_mark_rounded),
-                        ),
-                        label: Text('Mixed'),
-                        onPressed: () {},
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(80.0),
-                      child: ActionChip(
-                        elevation: 8.0,
-                        padding: EdgeInsets.all(2.0),
-                        avatar: const CircleAvatar(
-                          backgroundColor: Colors.redAccent,
-                          child: Icon(Icons.question_mark_rounded),
-                        ),
-                        label: const Text('Fill in Blank'),
-                        onPressed: () {},
-                      ),
-                    ),
-                  ],
-                ),
+              DropdownButton(
+                  value: defaultChoice,
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  items: items.map((String items) {
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Text(items),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      defaultChoice = newValue!;
+                    });
+                  }),
+              Text(
+                'Select amount of questions',
+                style: TextStyle(fontSize: 20),
               ),
-            ),
-          ],
+              DropdownButton(
+                  value: defaultNum,
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  items: amountOfQuestions.map((String items) {
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Text(items),
+                    );
+                  }).toList(),
+                  onChanged: (String? newTotal) {
+                    setState(() {
+                      defaultNum = newTotal!;
+                    });
+                  }),
+              ElevatedButton(
+                onPressed: () {},
+                child: Text('Submit'),
+              ),
+            ],
+          ),
         ),
       ),
     );
