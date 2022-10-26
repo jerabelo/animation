@@ -31,6 +31,14 @@ class MultipleChoiceQuestion extends Questions {
     return stem;
   }
 
+  List<String> getChoices() {
+    return choices;
+  }
+
+  String getResponse() {
+    return response;
+  }
+
   // Method for displaying questions using Super method
   void displayQuestion() {
     stdout.write('${stem}\n');
@@ -80,6 +88,10 @@ class FillInBlankQuestion extends Questions {
 
   String getStem() {
     return stem;
+  }
+
+  String getResponse() {
+    return response;
   }
 
   // Method for displaying questions using Super method

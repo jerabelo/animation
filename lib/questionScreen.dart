@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import "responseWidgets.dart";
 import 'Model.dart';
 import 'Controller.dart';
 import 'dart:async';
@@ -51,6 +52,14 @@ class _QuizPageState extends State<QuizPage> {
     setState(() {});
   }
 
+  Widget getWidget(var Question) {
+    if (Question is MultipleChoiceQuestion) {
+      return multipleChoiceList(Question);
+    } else {
+      return freeResponse(Question);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,16 +71,17 @@ class _QuizPageState extends State<QuizPage> {
                 return Container(
                   color: Theme.of(context).colorScheme.background,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        padding: EdgeInsets.all(30),
+                        padding: EdgeInsets.all(20),
                         child: Text(
                           quiz[index].getStem(),
                           textAlign: TextAlign.left,
                           textScaleFactor: 2,
                         ),
                       ),
+                      getWidget(quiz[index]),
                     ],
                   ),
                 );
