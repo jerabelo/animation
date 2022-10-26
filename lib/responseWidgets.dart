@@ -99,9 +99,14 @@ class _freeResponseState extends State<freeResponse> {
             labelText: 'Enter your answer',
           ),
           controller: _controller,
-          onSubmitted: ((String value) {
+          onChanged: ((String value) {
             setState(() {
-              widget.question.setResponse(value);
+              if (value == Null) {
+                widget.question.setResponse(" ");
+              } else {
+                widget.question.setResponse(value);
+                print(widget.question.getResponse());
+              }
             });
           }),
         ),

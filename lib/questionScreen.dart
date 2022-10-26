@@ -1,3 +1,4 @@
+import 'package:animation/reviewAnswers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import "responseWidgets.dart";
@@ -49,7 +50,12 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   void _submit() {
-    setState(() {});
+    setState(() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => reviewScreen(quiz)),
+      );
+    });
   }
 
   Widget getWidget(var Question) {
