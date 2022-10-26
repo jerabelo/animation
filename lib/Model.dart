@@ -23,7 +23,7 @@ class MultipleChoiceQuestion extends Questions {
   var stem;
   var choices;
   var answer;
-  var response;
+  var response = "None";
   MultipleChoiceQuestion(this.stem, this.choices, this.answer)
       : super(stem, choices, answer);
 
@@ -82,7 +82,7 @@ class MultipleChoiceQuestion extends Questions {
 class FillInBlankQuestion extends Questions {
   var stem;
   var answer;
-  var response;
+  var response = "None";
   FillInBlankQuestion(this.stem, this.answer)
       : super.withoutChoices(stem, answer);
 
