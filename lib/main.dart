@@ -1,3 +1,4 @@
+import 'package:animation/questionScreen.dart';
 import 'package:animation/user_settings.dart';
 import 'package:flutter/material.dart';
 import 'Controller.dart';
@@ -27,9 +28,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme:
+          ThemeData(primarySwatch: Colors.red, backgroundColor: Colors.white),
       home: const MyHomePage(
         title: 'Interactive Quiz App',
       ),
@@ -154,8 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             });
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => SecondRoute()),
+                          MaterialPageRoute(builder: (context) => QuizPage()),
                         );
                       }
                     },

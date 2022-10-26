@@ -27,6 +27,10 @@ class MultipleChoiceQuestion extends Questions {
   MultipleChoiceQuestion(this.stem, this.choices, this.answer)
       : super(stem, choices, answer);
 
+  String getStem() {
+    return stem;
+  }
+
   // Method for displaying questions using Super method
   void displayQuestion() {
     stdout.write('${stem}\n');
@@ -73,6 +77,10 @@ class FillInBlankQuestion extends Questions {
   var response;
   FillInBlankQuestion(this.stem, this.answer)
       : super.withoutChoices(stem, answer);
+
+  String getStem() {
+    return stem;
+  }
 
   // Method for displaying questions using Super method
   void displayQuestion() {
